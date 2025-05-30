@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import space from "./assets/space.jpg";
+import "./App.css";
+import axios from "axios";
+
+const accountToken = import.meta.env.VITE_REACT_APP_ACCOUNT_TOKEN;
+const agentToken = import.meta.env.VITE_REACT_APP_AGENT_TOKEN;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [agentData, setAgentData] = useState(0);
+  const baseUrl = "https://api.spacetraders.io/v2/";
+  const headers = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${agentToken}`,
+    },
+  };
+
+  useEffect(() => {
+    getAccount();
+  }, []);
+
+  const getAccount = async () => {
+    axios
+      .get(`${baseUrl}my/agent`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="Header">
+        <div>
+          <img src={space} />
+        </div>
+        <h1>
+          I'm going to the one place that hasn't been corrupted by
+          capitalism...SPACE!
+        </h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
