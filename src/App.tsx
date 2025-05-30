@@ -17,7 +17,14 @@ function App() {
   };
 
   useEffect(() => {
-    getAccount();
+    // getAccount();
+    // getShips();
+    // getShip();
+    // getShipCargo();
+    // getSystems();
+    // getSystem();
+    // getFactions();
+    getMyFaction();
   }, []);
 
   const getAccount = async () => {
@@ -31,7 +38,84 @@ function App() {
         console.error(error);
       });
   };
-
+  const getShips = async () => {
+    axios
+      .get(`${baseUrl}my/ships`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getShip = async () => {
+    axios
+      .get(`${baseUrl}my/ships/ZORVEN-1`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getShipCargo = async () => {
+    axios
+      .get(`${baseUrl}my/ships/ZORVEN-1/cargo`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getSystems = async () => {
+    axios
+      .get(`${baseUrl}systems`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getSystem = async () => {
+    axios
+      .get(`${baseUrl}systems/X1-XF39`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getFactions = async () => {
+    axios
+      .get(`${baseUrl}factions/ASTRO`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const getMyFaction = async () => {
+    axios
+      .get(`${baseUrl}my/factions`, headers)
+      .then((response) => {
+        console.log("API response:", response.data);
+        setAgentData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
   return (
     <>
       <div className="Header">
